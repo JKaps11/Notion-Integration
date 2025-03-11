@@ -1,6 +1,5 @@
 require("dotenv").config();
 const { Client } = require("@notionhq/client");
-const cron = require("node-cron");
 
 // Initialize Notion client
 const notion = new Client({ auth: process.env.NOTION_API_KEY });
