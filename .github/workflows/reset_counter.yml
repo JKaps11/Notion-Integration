@@ -3,6 +3,7 @@ name: Reset Notion Counter Weekly
 on:
   schedule:
     - cron: "0 0 * * 1" # Runs every Monday at midnight UTC
+  workflow_dispatch:
 
 jobs:
   reset-counter:
