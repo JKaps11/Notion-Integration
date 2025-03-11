@@ -1,0 +1,13 @@
+{
+  "name": "notion-reset",
+  "version": "1.0.0",
+  "main": "resetCounter.js",
+  "dependencies": {
+    "@notionhq/client": "^2.2.0",
+    "dotenv": "^16.0.3"
+  },
+  "scripts": {
+    "start": "node resetCounter.js"
+  }
+}
+
