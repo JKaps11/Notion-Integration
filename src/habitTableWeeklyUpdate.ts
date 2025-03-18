@@ -41,8 +41,8 @@ function updateSuccessfulWeeks(
 ): number {
   const current = getNumber(currentSuccessful);
   const goal = getNumber(weeklyGoal);
-  const frequency = getNumber(weeklyFrequency);
-  return goal >= frequency ? current + 1 : current;
+  const week_amount = getNumber(weeklyFrequency);
+  return goal >= week_amount ? current : current + 1;
 }
 
 function computeSuccessPercentage(totalWeeks: number, successfulWeeks: number): number {
@@ -59,6 +59,11 @@ async function updatePageCounters(page: NotionPage): Promise<void> {
   const newSuccessfulWeeks = updateSuccessfulWeeks(currentSuccessfulWeeks, weeklyGoal, weeklyFrequency);
   const newSuccessPercentage = computeSuccessPercentage(newWeekCount, newSuccessfulWeeks);
 
+  // Update table with new values including:
+  // Total weeks + 1
+  // Total Succesfull weeks Maybe + 1
+  // New Percentage of succesfull weeks
+  // Recent frequencies
   await notionClient.pages.update({
     page_id: page.id,
     properties: {
@@ -70,6 +75,9 @@ async function updatePageCounters(page: NotionPage): Promise<void> {
       },
       [COLLUMN_TITLE_SUCCESS_PERCENTAGE]: {
         number: newSuccessPercentage
+      },
+      [COLLUMN_TITLE_WEEKLY_FREQUENCY]: {
+        number: 0 
       }
     }
   });
